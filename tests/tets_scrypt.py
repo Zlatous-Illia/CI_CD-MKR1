@@ -1,12 +1,12 @@
 import pytest
 import sys
 sys.path.append(".")
-from Main import read_file, split_text, count_words_and_sentences, save_result
+from Main import read_file, split_text, count_words_and_sentences
 
 # Fixture для зчитування вмісту файлу
 @pytest.fixture
 def test_text():
-    filename = "index.txt"
+    filename = "text.txt"
     return read_file(filename)
 
 ## Фіксований тест для функції read_file
