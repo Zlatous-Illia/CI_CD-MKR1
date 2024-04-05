@@ -13,7 +13,7 @@ def split_text(text: str) -> Tuple[List[str], List[str]]:
     words = re.findall(r'\b\w+\b', text)
 
     # Розділяємо текст на речення за всіма можливими символами, які можуть завершувати речення
-    sentences = re.split(r'(?<=[.!?…])\s*', text)
+    sentences = re.split(r'[\.\?!]+', text)
     sentences = [sentence.strip() for sentence in sentences if sentence.strip()]
 
     # Розділяємо кожне речення на слова
@@ -29,13 +29,22 @@ def count_words_and_sentences(words: List[str], sentences: List[str]) -> Tuple[i
     return len(words), len(sentences)
 
 
+def save_result(filename: str, word_count: int, sentence_count: int):
+    """Метод для збереження результату у файл"""
+    with open(filename, 'w') as file:
+        file.write(f"Кількість слів у файлі: {word_count}\n")
+        file.write(f"Кількість речень у файлі: {sentence_count}\n")
+
+
 def main():
     filename = "text.txt"  # Шлях до файлу
+    result_filename = "result.txt"  # Ім'я файлу для збереження результатівy
     text = read_file(filename)
     words, sentences = split_text(text)
     word_count, sentence_count = count_words_and_sentences(words, sentences)
     print("Кількість слів у файлі:", word_count)
     print("Кількість речень у файлі:", sentence_count)
+    save_result(result_filename, word_count, sentence_count)
 
 if __name__ == "__main__":
     main()
